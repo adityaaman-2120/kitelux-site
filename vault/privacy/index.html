@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KiteVault Privacy Policy – Kitelux</title>
+    <meta
+      name="description"
+      content="How KiteVault handles your data: everything stays on your device. No analytics, no ads, no tracking."
+    />
+    <meta name="theme-color" content="#0E1630" />
+    <link rel="icon" type="image/png" href="../../assets/kitelux-mark.png" />
+    <link rel="stylesheet" href="../../assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href="/"><img src="../../assets/kitelux-mark.png" alt="" />Kitelux</a>
+        <nav class="nav" aria-label="Main">
+          <a href="./" aria-current="page">Privacy</a>
+          <a href="../terms/">Terms</a>
+          <a href="mailto:support@kitelux.com">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="doc-head">
+      <div class="wrap narrow">
+        <div class="crumbs"><a href="/">Kitelux</a> / KiteVault</div>
+        <h1>Privacy Policy</h1>
+        <p>KiteVault for Android · Effective 23 October 2026</p>
+      </div>
+    </div>
+
+    <main id="main" class="wrap narrow">
+      <article class="doc">
+        <div class="summary">
+          <strong>The short version</strong>
+          <ul>
+            <li>Your vault is stored only on your phone, encrypted.</li>
+            <li>We run no servers and cannot see, recover or reset your data or master password.</li>
+            <li>No ads, no analytics, no crash-report services, no trackers.</li>
+            <li>
+              Two optional features use the internet: Google Drive backup and the password breach
+              check. Both are off until you use them.
+            </li>
+          </ul>
+        </div>
+
+        <nav class="toc" aria-label="Contents">
+          <strong>Contents</strong>
+          <ol>
+            <li><a href="#who">Who we are</a></li>
+            <li><a href="#data">Data we collect</a></li>
+            <li><a href="#device">Data on your device</a></li>
+            <li><a href="#optional">Optional network features</a></li>
+            <li><a href="#permissions">Permissions</a></li>
+            <li><a href="#sharing">Sharing and selling</a></li>
+            <li><a href="#retention">Retention and deletion</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#changes">Changes</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ol>
+        </nav>
+
+        <h2 id="who">1. Who we are</h2>
+        <p>
+          KiteVault is an offline-first password manager for Android (package
+          <code>com.kitelux.kitevault</code>), developed by Kitelux ("we", "us"). This policy
+          explains what happens to your information when you use the app.
+        </p>
+
+        <h2 id="data">2. Data we collect</h2>
+        <p>
+          <strong>We do not collect any personal data.</strong> Kitelux has no servers that receive
+          your vault, your passwords, your email address, your device identifiers or your usage. The
+          app contains no analytics, advertising, tracking or crash-reporting libraries, and we do
+          not use any of them.
+        </p>
+
+        <h2 id="device">3. Data stored on your device</h2>
+        <p>
+          The information you put into KiteVault (logins, notes, folders, 2FA secrets, settings) is
+          saved in a single encrypted file in the app's private storage on your phone.
+        </p>
+        <ul>
+          <li>
+            It is encrypted with AES-256-GCM. The key is derived from your master password with
+            Argon2id.
+          </li>
+          <li>Your master password is never stored, anywhere, and never leaves your phone.</li>
+          <li>Decrypted data is held in memory only while the vault is unlocked and is cleared when it locks.</li>
+          <li>
+            Android's automatic cloud backup is switched off for the app, so the vault is not copied
+            to your Google account unless you use KiteVault's own Drive backup below.
+          </li>
+          <li>
+            <strong>We cannot recover your data.</strong> If you forget your master password and
+            have no recovery key, the vault cannot be opened by anyone, including us.
+          </li>
+        </ul>
+        <p>
+          If you export your vault to a file (for example CSV or PDF), that file is
+          <strong>not encrypted</strong>. You choose where it goes and you are responsible for it.
+        </p>
+
+        <h2 id="optional">4. Optional network features</h2>
+        <p>
+          KiteVault makes network requests only when you use the two features below. There are no
+          other network calls.
+        </p>
+
+        <h3>Google Drive backup (optional)</h3>
+        <p>
+          If you turn on backup, you sign in with your Google account and allow the narrow
+          <code>drive.appdata</code> permission. KiteVault can then upload your
+          <strong>already-encrypted</strong> vault file to a hidden application-data folder in your
+          own Google Drive, and read it back when you restore. We cannot see inside this folder
+          from outside the app, and the file is unreadable without your master password. The data
+          goes directly between your phone and Google; it does not pass through Kitelux. Google
+          handles it under its own
+          <a href="https://policies.google.com/privacy" rel="noopener">Privacy Policy</a>. You can
+          sign out or delete the backup at any time from the app or from your Google Account.
+        </p>
+        <p>
+          KiteVault's use of information received from Google APIs adheres to the
+          <a
+            href="https://developers.google.com/terms/api-services-user-data-policy"
+            rel="noopener"
+            >Google API Services User Data Policy</a
+          >, including the Limited Use requirements.
+        </p>
+
+        <h3>Password breach check (optional)</h3>
+        <p>
+          When you run the breach check, KiteVault asks the
+          <a href="https://haveibeenpwned.com/Passwords" rel="noopener">Have I Been Pwned</a>
+          "Pwned Passwords" service whether a password appears in known data breaches. It uses
+          k-anonymity: the password is hashed (SHA-1) on your phone and
+          <strong>only the first 5 characters of the hash</strong> are sent. The service returns a
+          list of matching hash endings and the comparison happens on your phone. Your password,
+          its full hash and which entry it belongs to are never sent. As with any internet
+          request, the service can see your IP address.
+        </p>
+
+        <h2 id="permissions">5. Permissions the app uses</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Permission / feature</th>
+                <th>Why</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Camera</td>
+                <td>
+                  Only to scan a 2FA (TOTP) QR code when you add one. Images are processed on the
+                  device and are not saved or sent anywhere.
+                </td>
+              </tr>
+              <tr>
+                <td>Biometrics</td>
+                <td>
+                  Optional fingerprint or face unlock, handled by Android. KiteVault never receives
+                  or stores your biometric data.
+                </td>
+              </tr>
+              <tr>
+                <td>Autofill service</td>
+                <td>
+                  Optional. If you enable KiteVault as your Android autofill provider, it can offer
+                  matching logins in apps and browsers. Matching happens on the device; nothing is
+                  sent off it.
+                </td>
+              </tr>
+              <tr>
+                <td>Clipboard</td>
+                <td>
+                  Used when you copy a password or code. KiteVault clears it automatically after a
+                  short delay.
+                </td>
+              </tr>
+              <tr>
+                <td>Internet</td>
+                <td>Only for the two optional features in section 4.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="sharing">6. Sharing and selling</h2>
+        <p>
+          We do not sell, rent, trade or share your information, because we do not have it. We do
+          not use any advertising or data-broker services.
+        </p>
+
+        <h2 id="retention">7. Retention and deletion</h2>
+        <p>
+          Your data stays on your phone until you delete it. You can erase the vault from
+          <strong>Settings</strong> in the app, or by uninstalling KiteVault, which removes its
+          private storage. A Drive backup, if you made one, stays in your Google Drive until you
+          delete it there or from the app. Because Kitelux holds no copy, there is nothing for us
+          to delete on request.
+        </p>
+
+        <h2 id="security">8. Security</h2>
+        <p>
+          We use vetted, widely reviewed cryptographic libraries and never custom cryptography. No
+          software is perfectly secure: a strong, unique master password, a locked phone and an
+          up-to-date Android are important parts of your protection. If you find a security issue,
+          please email <a href="mailto:support@kitelux.com">support@kitelux.com</a>.
+        </p>
+
+        <h2 id="children">9. Children</h2>
+        <p>
+          KiteVault is not directed at children under 13, and we do not knowingly collect
+          information from anyone, including children.
+        </p>
+
+        <h2 id="changes">10. Changes to this policy</h2>
+        <p>
+          If we change how the app handles data, we will update this page and its effective date
+          before the change ships. Material changes will also be described in the app's release
+          notes.
+        </p>
+
+        <h2 id="contact">11. Contact</h2>
+        <p>
+          Questions about privacy? Email
+          <a href="mailto:support@kitelux.com">support@kitelux.com</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <span>© 2026 Kitelux. All rights reserved.</span>
+        <nav aria-label="Footer">
+          <a href="/">Home</a>
+          <a href="../terms/">Terms of Service</a>
+          <a href="mailto:support@kitelux.com">support@kitelux.com</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
