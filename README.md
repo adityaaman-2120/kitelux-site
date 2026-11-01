@@ -12,6 +12,7 @@ Static website for Kitelux, hosted on Cloudflare Pages from this GitHub repo. Th
 /about/  /security/  /contact/
 /404.html              Served automatically by Cloudflare Pages
 /assets/style.css      The one shared stylesheet (components documented at the top)
+/assets/fonts/         Self-hosted Inter variable font (woff2) and its SIL OFL license
 /_headers              Security headers (strict CSP: no inline styles or scripts)
 /robots.txt  /sitemap.xml  /.well-known/security.txt
 ```

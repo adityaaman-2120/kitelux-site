@@ -1,70 +1,126 @@
 /*
- * Kitelux design system. One shared stylesheet for every page. No fonts or assets loaded externally.
- * Palette: night blue #0E1630, amber #FFB547. Light/dark via prefers-color-scheme.
+ * Kitelux design system. One shared stylesheet for every page. Everything is served from this site:
+ * no CDNs, no tracking. One self-hosted variable font (Inter, SIL OFL, see assets/fonts/).
+ * Theme: "night sky" in dark mode, "day sky" in light mode (prefers-color-scheme). Amber #FFB547 is the
+ * shared accent; night blue #0E1630 / #0A1028 anchors the dark theme.
  *
  * COMPONENTS (class → purpose)
- *   .site-header > .wrap > .brand + nav.nav   Header. Nav: Products, Security, About, Contact.
- *                                             Wraps onto extra lines on small screens (no JS, no hamburger).
- *                                             Mark current page with aria-current="page".
- *   .site-footer                              Footer, 4 columns on desktop, stacked on mobile:
- *     .footer-cols > .footer-col (h2 + ul)      Products | Company | Legal  (+ brand column optional)
+ *   .site-header > .wrap > .brand + nav.nav   Sticky header. Transparent over the sky; becomes solid with
+ *                                             blur once scrolled (CSS scroll-driven animation; browsers
+ *                                             without it just keep the solid style). Nav: Products,
+ *                                             Security, About, Contact. Wraps on small screens, no JS.
+ *   .hero / .doc-head                         Page intro on the sky gradient with a dusk glow at its bottom.
+ *   .site-footer                              4-column grid on desktop, stacked on mobile:
+ *     .footer-cols > .footer-col (h2 + ul)      Products | Company | Legal
  *     .footer-bottom                            © line + support email.
- *   .card / .product-card                     Surface box. Product card = .card.product-card with
- *                                             .app-head (icon + h2), a .badge, p, and .links buttons.
- *   .badge  + .badge-testing | .badge-available | .badge-soon
- *                                             Status pill. (.tag is a legacy alias of the base badge.)
- *   .section-heading                          Centered/left heading block: h2 + optional p, inside sections.
- *   .btn.btn-primary | .btn.btn-secondary     Buttons. Plain .btn behaves as secondary (legacy).
- *   .feature-grid > .feature                  Responsive grid of short feature blurbs (h3 + p).
- *                                             (.principles / .principle are legacy aliases.)
- *   .hero, .doc-head, .doc, .summary, .toc    Home hero and legal-document layout.
+ *   .card / .product-card                     Glass card (translucent, blurred, amber glow on hover/focus).
+ *                                             Product card = .card.product-card: .app-head (icon + h3),
+ *                                             .badge, p, .links.  .card-muted = placeholder card.
+ *   .badge + .badge-testing | .badge-available | .badge-soon     Status pill. (.tag = legacy alias.)
+ *   .section-heading                          h2 + optional p, optional .center.
+ *   .btn.btn-primary | .btn.btn-secondary     Buttons (plain .btn = secondary).
+ *   .feature-grid > .feature                  Responsive grid of glass cards (h3 + p). (.principles /
+ *                                             .principle are legacy aliases.)
+ *   .doc, .summary, .toc, table               Long-form legal/info page layout.
  *
  * Use tokens (var(--...)) instead of hard-coded colors in pages.
  */
 
-:root {
-  --bg: #f4f5fa;
-  --surface: #ffffff;
-  --surface-muted: #e8eaf3;
-  --border: #dde1ee;
-  --text: #0e1630;
-  --text-muted: #4a5272;
-  --primary: #1b2a5c;
-  --on-primary: #ffffff;
-  --accent: #b4530a;
-  --accent-soft: #fff1dc;
-  --header: #1b2a5c;
-  --shadow: 0 1px 2px rgba(14, 22, 48, 0.06), 0 8px 24px rgba(14, 22, 48, 0.06);
-
-  /* Status badges */
-  --badge-testing-bg: var(--accent-soft);
-  --badge-testing-fg: var(--accent);
-  --badge-available-bg: #dcf5e3;
-  --badge-available-fg: #14532d;
-  --badge-soon-bg: var(--surface-muted);
-  --badge-soon-fg: var(--text-muted);
-
-  --font-sans:
-    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+@font-face {
+  font-family: 'Inter';
+  src: url('/assets/fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
 }
 
+/* Day sky (light) */
+:root {
+  --sky-top: #9ccbf4;
+  --sky-mid: #cde5fa;
+  --bg: #f3f8ff;
+  --sky-height: 640px;
+
+  --surface: #ffffff;
+  --surface-muted: rgba(14, 22, 48, 0.06);
+  --border: rgba(14, 22, 48, 0.14);
+
+  --heading: #0a1028;
+  --text: #14204a;
+  --text-muted: #33406b;
+
+  --primary: #14204a;
+  --on-primary: #ffffff;
+  --accent: #9a4608;
+  --accent-soft: rgba(255, 181, 71, 0.28);
+  --amber: #ffb547;
+
+  --card-bg: rgba(255, 255, 255, 0.62);
+  --card-bg-muted: rgba(255, 255, 255, 0.35);
+  --card-border: rgba(14, 22, 48, 0.12);
+  --card-hover-border: rgba(154, 70, 8, 0.6);
+  --card-glow: rgba(255, 181, 71, 0.4);
+  --shadow: 0 1px 2px rgba(14, 22, 48, 0.06), 0 8px 24px rgba(14, 22, 48, 0.07);
+
+  --nav-fg: #14204a;
+  --nav-hover: #7a3500;
+  --header-solid: rgba(243, 248, 255, 0.85);
+  --header-border: rgba(14, 22, 48, 0.12);
+  --glow: rgba(255, 181, 71, 0.22);
+  --focus: #14204a;
+  --noise: none;
+
+  --badge-testing-bg: var(--accent-soft);
+  --badge-testing-fg: #6f3000;
+  --badge-available-bg: #dcf5e3;
+  --badge-available-fg: #14532d;
+  --badge-soon-bg: rgba(14, 22, 48, 0.08);
+  --badge-soon-fg: #33406b;
+
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Night sky (dark) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0e1630;
-    --surface: #172042;
-    --surface-muted: #212c5a;
-    --border: #2a3566;
-    --text: #f4f5fa;
-    --text-muted: #b7bfdd;
-    --primary: #ffb547;
-    --on-primary: #0e1630;
-    --accent: #ffb547;
-    --accent-soft: #2b2f4e;
-    --header: #0e1630;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    --sky-top: #0a1028;
+    --sky-mid: #121b45;
+    --bg: #1c2257;
 
-    --badge-available-bg: #17382b;
+    --surface: #151d4a;
+    --surface-muted: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.1);
+
+    --heading: #f6f8ff;
+    --text: #e6eaf8;
+    --text-muted: #d5dbf2;
+
+    --primary: #ffb547;
+    --on-primary: #0a1028;
+    --accent: #ffb547;
+    --accent-soft: rgba(255, 181, 71, 0.14);
+
+    --card-bg: rgba(255, 255, 255, 0.04);
+    --card-bg-muted: rgba(255, 255, 255, 0.02);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --card-hover-border: rgba(255, 181, 71, 0.45);
+    --card-glow: rgba(255, 181, 71, 0.16);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.22);
+
+    --nav-fg: #dce2f7;
+    --nav-hover: #ffb547;
+    --header-solid: rgba(10, 16, 40, 0.85);
+    --header-border: rgba(255, 255, 255, 0.1);
+    --glow: rgba(255, 181, 71, 0.08);
+    --focus: #ffb547;
+    /* Very subtle film grain (feTurbulence), ~4% opacity, inline data URI */
+    --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+
+    --badge-testing-fg: #ffb547;
+    --badge-available-bg: rgba(52, 211, 153, 0.14);
     --badge-available-fg: #9be7b4;
+    --badge-soon-bg: rgba(255, 255, 255, 0.08);
+    --badge-soon-fg: #d5dbf2;
   }
 }
 
@@ -74,18 +130,41 @@
 }
 
 html {
+  min-height: 100%;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image:
+    var(--noise),
+    linear-gradient(180deg, var(--sky-top) 0, var(--sky-mid) 320px, var(--bg) var(--sky-height));
+  background-size:
+    180px 180px,
+    100% var(--sky-height);
+  background-repeat: repeat, no-repeat;
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--heading);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+h3,
+h4 {
+  font-weight: 650;
 }
 
 a {
@@ -98,7 +177,7 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -111,9 +190,10 @@ a:hover {
   left: 16px;
   top: 12px;
   background: var(--surface);
+  color: var(--text);
   padding: 8px 12px;
   border-radius: 8px;
-  z-index: 10;
+  z-index: 30;
 }
 
 .wrap {
@@ -127,17 +207,37 @@ a:hover {
   max-width: 760px;
 }
 
-/* Site header + nav (works without JS: links wrap onto further lines on narrow screens) */
+/* Sticky header: solid by default; where scroll-driven animations exist it starts transparent
+   over the sky and turns solid (with blur and a bottom border) as the page scrolls. */
 .site-header {
-  background: var(--header);
-  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--header-solid);
+  border-bottom: 1px solid var(--header-border);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
-/* The header background is dark in both modes, so use amber focus rings here. */
-.site-header :focus-visible,
-.hero :focus-visible,
-.doc-head :focus-visible {
-  outline-color: #ffb547;
+@supports (animation-timeline: scroll()) {
+  .site-header {
+    background: transparent;
+    border-bottom-color: transparent;
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
+    animation: header-solid linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 96px;
+  }
+}
+
+@keyframes header-solid {
+  to {
+    background: var(--header-solid);
+    border-bottom-color: var(--header-border);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
 }
 
 .site-header .wrap {
@@ -154,18 +254,17 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: #fff;
+  color: var(--heading);
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.15rem;
-  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+  letter-spacing: -0.03em;
   padding: 4px 0;
 }
 
 .brand img {
   width: 34px;
   height: 34px;
-  border-radius: 8px;
 }
 
 .nav {
@@ -176,21 +275,46 @@ a:hover {
 }
 
 .nav a {
-  color: #dfe4f7;
+  color: var(--nav-fg);
   text-decoration: none;
   padding: 8px 0; /* comfortable tap target */
 }
 
 .nav a:hover,
 .nav a[aria-current='page'] {
-  color: #ffb547;
+  color: var(--nav-hover);
 }
 
-/* Hero */
+/* Hero and page intro: transparent over the sky, with a dusk glow along the bottom edge */
+.hero,
+.doc-head {
+  position: relative;
+}
+
+/* The glow is centred on the hero's bottom edge and fades out on both sides of it,
+   so there is no hard line where the hero ends. It sits behind all content. */
+.hero::after,
+.doc-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20%;
+  bottom: -200px;
+  z-index: -1;
+  background: radial-gradient(ellipse 62% 26% at 50% 72%, var(--glow), transparent 100%);
+  pointer-events: none;
+}
+
+.hero > .wrap,
+.doc-head > .wrap {
+  position: relative;
+  z-index: 1;
+}
+
 .hero {
-  background: linear-gradient(180deg, var(--header) 0%, #14204a 100%);
-  color: #fff;
-  padding: 72px 0 96px;
+  color: var(--text);
+  padding: 56px 0 88px;
   text-align: center;
 }
 
@@ -198,20 +322,19 @@ a:hover {
   width: 96px;
   height: 96px;
   margin-bottom: 8px;
-  border-radius: 20px;
+  filter: drop-shadow(0 8px 28px rgba(255, 181, 71, 0.28));
 }
 
 .hero h1 {
-  margin: 0 0 12px;
-  font-size: clamp(2.2rem, 6vw, 3.4rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  margin: 0 0 14px;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.08;
 }
 
 .hero p {
   margin: 0 auto;
   max-width: 560px;
-  color: #cfd6f0;
+  color: var(--text-muted);
   font-size: 1.1rem;
 }
 
@@ -223,9 +346,8 @@ a:hover {
 
 .section-heading h2 {
   margin: 0 0 6px;
-  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-size: clamp(1.5rem, 4vw, 2rem);
   line-height: 1.2;
-  letter-spacing: -0.01em;
 }
 
 .section-heading p {
@@ -239,7 +361,35 @@ a:hover {
   text-align: center;
 }
 
-/* Cards / product card */
+/* Glass cards: .card, .feature (+ legacy .principle) and the long-form .doc */
+.card,
+.feature,
+.principle,
+.doc {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Hover/focus only changes colour and glow, never size or position (no layout shift) */
+.card:hover,
+.card:focus-within,
+.feature:hover,
+.feature:focus-within,
+.principle:hover,
+.principle:focus-within {
+  border-color: var(--card-hover-border);
+  box-shadow:
+    var(--shadow),
+    0 0 28px var(--card-glow);
+}
+
 .cards {
   display: grid;
   gap: 20px;
@@ -248,14 +398,11 @@ a:hover {
 }
 
 .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
   padding: 28px;
-  box-shadow: var(--shadow);
 }
 
-.card h2 {
+.card h2,
+.card h3 {
   margin: 0 0 6px;
   font-size: 1.4rem;
 }
@@ -284,12 +431,10 @@ a:hover {
 .app-head img {
   width: 56px;
   height: 56px;
-  border-radius: 14px;
-  background: #0e1630;
-  padding: 6px;
 }
 
-.app-head h2 {
+.app-head h2,
+.app-head h3 {
   margin: 0;
 }
 
@@ -300,7 +445,7 @@ a:hover {
   background: var(--badge-testing-bg);
   color: var(--badge-testing-fg);
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 650;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
@@ -331,11 +476,15 @@ a:hover {
   gap: 12px;
 }
 
+.links-center {
+  justify-content: center;
+}
+
 .btn {
   display: inline-block;
   padding: 10px 18px;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: 12px;
+  font-weight: 650;
   font-size: 0.95rem;
   line-height: 1.4;
   text-align: center;
@@ -343,6 +492,9 @@ a:hover {
   background: transparent;
   border: 1.5px solid var(--primary);
   color: var(--primary);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 .btn:hover {
@@ -351,13 +503,15 @@ a:hover {
 }
 
 .btn-primary {
-  background: var(--primary);
-  color: var(--on-primary);
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #0a1028;
 }
 
 .btn-primary:hover {
-  background: transparent;
-  color: var(--primary);
+  background: #ffc76b;
+  border-color: #ffc76b;
+  color: #0a1028;
 }
 
 .btn-secondary {
@@ -375,10 +529,7 @@ a:hover {
 
 .feature,
 .principle {
-  padding: 20px;
-  border-left: 3px solid var(--accent);
-  background: var(--surface);
-  border-radius: 0 12px 12px 0;
+  padding: 22px;
 }
 
 .feature h3,
@@ -394,7 +545,7 @@ a:hover {
   font-size: 0.95rem;
 }
 
-/* Page sections, muted card, text strips (home page) */
+/* Page sections, muted card, text strips */
 .section {
   padding-top: 56px;
 }
@@ -404,18 +555,15 @@ a:hover {
   padding-bottom: 0;
 }
 
-.card h3 {
-  margin: 0 0 6px;
-  font-size: 1.4rem;
-}
-
-.app-head h3 {
-  margin: 0;
-}
-
 .card-muted {
-  background: var(--surface-muted);
+  background: var(--card-bg-muted);
   border-style: dashed;
+  box-shadow: none;
+}
+
+.card-muted:hover,
+.card-muted:focus-within {
+  border-color: var(--card-border);
   box-shadow: none;
 }
 
@@ -424,8 +572,8 @@ a:hover {
   color: var(--text-muted);
 }
 
-.hero-actions {
-  margin-top: 24px;
+.hero .hero-actions {
+  margin: 28px auto 0;
 }
 
 .strip {
@@ -449,69 +597,25 @@ a:hover {
   color: var(--text-muted);
 }
 
-/* Links on the muted contents box: accent is below 4.5:1 here in light mode */
-.toc a {
-  color: var(--primary);
-}
-
-/* Buttons on the hero, which is dark navy in both modes */
-.hero .btn-primary {
-  background: #ffb547;
-  border-color: #ffb547;
-  color: #0e1630;
-}
-
-.hero .btn-primary:hover {
-  background: #fff;
-  border-color: #fff;
-  color: #0e1630;
-}
-
-.hero .btn-secondary {
-  color: #fff;
-  border-color: #fff;
-}
-
-.hero .btn-secondary:hover {
-  background: #fff;
-  color: #0e1630;
-}
-
-/* Buttons placed on the dark hero (404) */
-.links-center {
-  justify-content: center;
-}
-
-.btn-on-dark {
-  color: #fff;
-  border-color: #fff;
-}
-
-.btn-on-dark:hover {
-  background: #fff;
-  color: #0e1630;
-}
-
 /* Product page */
 .hero-product {
-  padding: 40px 0 56px;
+  padding: 32px 0 64px;
 }
 
 .hero .crumbs {
   font-size: 0.9rem;
-  color: #b7bfdd;
+  color: var(--text-muted);
   margin-bottom: 24px;
   text-align: left;
 }
 
 .hero .crumbs a {
-  color: #ffb547;
+  color: var(--nav-hover);
 }
 
 .hero .app-icon {
-  border-radius: 22px;
-  background: #0e1630;
-  padding: 10px;
+  width: 96px;
+  height: 96px;
 }
 
 .hero-product .badge {
@@ -545,47 +649,43 @@ a:hover {
   color: var(--text-muted);
 }
 
-/* Legal pages */
+/* Legal / info pages */
 .doc-head {
-  background: var(--header);
-  color: #fff;
-  padding: 40px 0 44px;
+  color: var(--text);
+  padding: 40px 0 56px;
 }
 
 .doc-head .crumbs {
   font-size: 0.9rem;
-  color: #b7bfdd;
+  color: var(--text-muted);
   margin-bottom: 10px;
 }
 
 .doc-head .crumbs a {
-  color: #ffb547;
+  color: var(--nav-hover); /* darker amber-brown in light mode: --accent is too light on the sky blue */
 }
 
 .doc-head h1 {
   margin: 0 0 6px;
-  font-size: clamp(1.8rem, 5vw, 2.5rem);
-  letter-spacing: -0.01em;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
 }
 
 .doc-head p {
   margin: 0;
-  color: #cfd6f0;
+  color: var(--text-muted);
 }
 
 .doc {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
   padding: 32px 28px;
   margin: -20px auto 56px;
+  position: relative;
+  z-index: 1;
 }
 
 .doc h2 {
   margin: 36px 0 8px;
   font-size: 1.3rem;
-  letter-spacing: -0.005em;
 }
 
 .doc h2:first-child {
@@ -612,7 +712,7 @@ a:hover {
 
 .summary {
   background: var(--accent-soft);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 18px 20px;
   margin: 0 0 28px;
 }
@@ -620,6 +720,7 @@ a:hover {
 .summary strong {
   display: block;
   margin-bottom: 6px;
+  color: var(--heading);
 }
 
 .summary ul {
@@ -628,7 +729,7 @@ a:hover {
 
 .toc {
   background: var(--surface-muted);
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 16px 20px;
   margin: 0 0 28px;
   font-size: 0.95rem;
@@ -637,6 +738,7 @@ a:hover {
 .toc strong {
   display: block;
   margin-bottom: 6px;
+  color: var(--heading);
 }
 
 .toc ol {
@@ -667,11 +769,15 @@ td {
 
 th {
   background: var(--surface-muted);
-  font-weight: 600;
+  color: var(--heading);
+  font-weight: 650;
 }
 
-/* Footer: .footer-cols (4 columns) + .footer-bottom.
-   Legacy markup (.wrap with a span and a nav) keeps working. */
+code {
+  font-size: 0.92em;
+}
+
+/* Footer: .footer-cols (4 columns) + .footer-bottom */
 .site-footer {
   border-top: 1px solid var(--border);
   padding: 32px 0 40px;
@@ -686,12 +792,6 @@ th {
   gap: 12px;
 }
 
-.site-footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
 .footer-cols {
   display: grid;
   grid-template-columns: 1fr;
@@ -702,9 +802,10 @@ th {
 .footer-col h2 {
   margin: 0 0 8px;
   font-size: 0.85rem;
+  font-weight: 650;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--text);
+  color: var(--heading);
 }
 
 .footer-col ul {
@@ -771,18 +872,43 @@ th {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .card,
+  .feature,
+  .principle,
+  .doc,
+  .btn {
+    transition: none;
+  }
+}
+
 @media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
   .site-header,
   .site-footer,
-  .toc {
+  .toc,
+  .hero::after,
+  .doc-head::after {
     display: none;
   }
-  .doc-head {
-    background: none;
+  .doc-head h1,
+  .doc-head p,
+  .doc h2,
+  .doc h3,
+  .doc p,
+  .doc li {
     color: #000;
   }
   .doc {
+    background: none;
     box-shadow: none;
     border: 0;
+    backdrop-filter: none;
   }
 }
