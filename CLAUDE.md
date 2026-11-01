@@ -1,4 +1,4 @@
-# CLAUDE.md — kitelux.com
+# CLAUDE.md â€” kitelux.com
 
 Static website for **kitelux.com**, hosted on Cloudflare Pages from GitHub. There is no build step: what is in the repo is what gets served.
 
@@ -17,7 +17,7 @@ No user counts, ratings, reviews, testimonials, press logos, partner logos, team
 ### 2. Plain static stack
 - Plain static HTML plus **one shared CSS file** (`assets/style.css`).
 - No frameworks, no build step, no external CDNs, no analytics, no tracking, no cookies.
-- Fonts: exactly ONE self-hosted variable font (Inter, SIL OFL, in `assets/fonts/` with its license). No other web fonts and no font CDNs (Google Fonts etc.).
+- Fonts: exactly ONE self-hosted variable font (Inter, Latin subset with the optical-size axis removed, SIL OFL, in `assets/fonts/` with its license). No other web fonts and no font CDNs (Google Fonts etc.).
 - JavaScript only if strictly necessary. Default is none; justify it to the user before adding any. Currently the only script is `/assets/site.js` (scroll reveal; progressive enhancement, pages work fully without it). Never inline scripts (CSP).
 
 ### 3. URLs that must never break
@@ -39,7 +39,7 @@ Every page links to `/vault/privacy/` in its footer (Google OAuth verification r
 - Mobile-first layout.
 - Semantic HTML (`header`, `nav`, `main`, `footer`, proper heading order), meaningful `alt` text, visible focus styles, WCAG AA contrast.
 - Light and dark mode via `prefers-color-scheme`. Verify contrast in **both** modes.
-- Theme: dark = "night sky" (gradient `#0A1028` → `#121B45` → `#1C2257`, amber dusk glow, 4% grain); light = "day sky" (sky blue to near-white). Glass cards, sticky header. Defined entirely by tokens in `assets/style.css`.
+- Theme: dark = "night sky" (gradient `#0A1028` â†’ `#121B45` â†’ `#1C2257`, amber dusk glow, 4% grain); light = "day sky" (sky blue to near-white). Glass cards, sticky header. Defined entirely by tokens in `assets/style.css`.
 
 ### 7. Palette
 - Night blue `#0E1630`

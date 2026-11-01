@@ -28,7 +28,7 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('/assets/fonts/InterVariable.woff2') format('woff2');
+  src: url('/assets/fonts/InterVariable-latin.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -40,6 +40,9 @@
   --sky-mid: #cde5fa;
   --bg: #f3f8ff;
   --sky-height: 640px;
+
+  /* Spacing: 8px scale (4px half-step for tiny gaps) */
+  --space-section: 64px; /* vertical padding of a page section: 64px mobile, 96px desktop */
 
   --surface: #ffffff;
   --surface-muted: rgba(14, 22, 48, 0.06);
@@ -200,7 +203,7 @@ a:hover {
   width: 100%;
   max-width: 1040px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 .wrap.narrow {
@@ -246,14 +249,14 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 4px 16px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   color: var(--heading);
   text-decoration: none;
   font-weight: 700;
@@ -270,7 +273,7 @@ a:hover {
 .nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 20px;
+  gap: 0 24px;
   font-size: 0.95rem;
 }
 
@@ -314,7 +317,7 @@ a:hover {
 
 .hero {
   color: var(--text);
-  padding: 56px 0 88px;
+  padding: 48px 0 64px;
   text-align: center;
 }
 
@@ -326,7 +329,7 @@ a:hover {
 }
 
 .hero h1 {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   font-size: clamp(2.4rem, 5vw, 4rem);
   line-height: 1.08;
 }
@@ -342,7 +345,7 @@ a:hover {
    Text left / sky right on desktop; sky above text on mobile. Fixed aspect ratio, so no layout shift. */
 .hero-grid {
   display: grid;
-  gap: 28px;
+  gap: 32px;
   align-items: center;
   grid-template-areas:
     'visual'
@@ -552,11 +555,11 @@ a:hover {
 }
 
 .card.featured {
-  padding: 28px 24px;
+  padding: 32px 24px;
 }
 
 .featured-body p {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   color: var(--text-muted);
   max-width: 520px;
 }
@@ -566,7 +569,7 @@ a:hover {
 }
 
 .featured-body .app-head {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .featured-body .app-head img {
@@ -595,7 +598,7 @@ a:hover {
 
 .points li {
   position: relative;
-  padding-left: 30px;
+  padding-left: 32px;
   color: var(--text);
 }
 
@@ -652,9 +655,12 @@ a:hover {
   background: linear-gradient(180deg, #0a1028 0%, #121b45 60%, #1c2257 100%);
 }
 
-.phone-screen object {
+.phone-screen {
   display: grid;
   place-items: center;
+}
+
+.phone-screen .phone-shot {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -669,8 +675,8 @@ a:hover {
 
 .more-pill {
   display: inline-block;
-  margin: 20px 0 0;
-  padding: 6px 16px;
+  margin: 24px 0 0;
+  padding: 8px 16px;
   border: 1px dashed var(--card-border);
   border-radius: 999px;
   color: var(--text-muted);
@@ -682,8 +688,11 @@ a:hover {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 48px;
   }
+  .card {
+    padding: 32px;
+  }
   .card.featured {
-    padding: 44px 48px;
+    padding: 48px;
   }
 }
 
@@ -727,7 +736,7 @@ a:hover {
 }
 
 .section-heading h2 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: clamp(1.5rem, 4vw, 2rem);
   line-height: 1.2;
 }
@@ -774,18 +783,18 @@ a:hover {
 
 .cards {
   display: grid;
-  gap: 20px;
+  gap: 24px;
   margin-top: -48px;
   padding-bottom: 56px;
 }
 
 .card {
-  padding: 28px;
+  padding: 24px;
 }
 
 .card h2,
 .card h3 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: 1.4rem;
 }
 
@@ -831,7 +840,7 @@ a:hover {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   line-height: 1.5;
-  padding: 3px 10px;
+  padding: 4px 8px;
   border-radius: 999px;
   margin-bottom: 12px;
 }
@@ -864,7 +873,7 @@ a:hover {
 
 .btn {
   display: inline-block;
-  padding: 10px 18px;
+  padding: 12px 24px;
   border-radius: 12px;
   font-weight: 650;
   font-size: 0.95rem;
@@ -911,7 +920,7 @@ a:hover {
 
 .feature,
 .principle {
-  padding: 22px;
+  padding: 24px;
 }
 
 .feature h3,
@@ -929,7 +938,15 @@ a:hover {
 
 /* Page sections, muted card, text strips */
 .section {
-  padding-top: 56px;
+  padding: var(--space-section) 0;
+}
+
+.section + .section {
+  padding-top: 0; /* neighbouring sections get one 96/64px gap, not two */
+}
+
+.hero + .section {
+  padding-top: 32px; /* the hero already supplies 64px below its content */
 }
 
 .section .cards {
@@ -955,12 +972,12 @@ a:hover {
 }
 
 .hero .hero-actions {
-  margin: 28px auto 0;
+  margin: 32px auto 0;
 }
 
 .strip {
   border-top: 1px solid var(--border);
-  padding: 32px 0;
+  padding: 48px 0;
 }
 
 .strip + .strip {
@@ -969,7 +986,7 @@ a:hover {
 }
 
 .strip h2 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: 1.2rem;
 }
 
@@ -1010,7 +1027,7 @@ a:hover {
 }
 
 .checklist {
-  padding-left: 22px;
+  padding-left: 24px;
 }
 
 .checklist li {
@@ -1040,7 +1057,7 @@ a:hover {
 .doc-head .crumbs {
   font-size: 0.9rem;
   color: var(--text-muted);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .doc-head .crumbs a {
@@ -1048,7 +1065,7 @@ a:hover {
 }
 
 .doc-head h1 {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: clamp(2rem, 5vw, 2.8rem);
   line-height: 1.1;
 }
@@ -1059,14 +1076,14 @@ a:hover {
 }
 
 .doc {
-  padding: 32px 28px;
-  margin: -20px auto 56px;
+  padding: 32px 24px;
+  margin: -24px auto 56px;
   position: relative;
   z-index: 1;
 }
 
 .doc h2 {
-  margin: 36px 0 8px;
+  margin: 40px 0 8px;
   font-size: 1.3rem;
 }
 
@@ -1075,7 +1092,7 @@ a:hover {
 }
 
 .doc h3 {
-  margin: 20px 0 4px;
+  margin: 24px 0 4px;
   font-size: 1.05rem;
 }
 
@@ -1085,23 +1102,23 @@ a:hover {
 }
 
 .doc ul {
-  padding-left: 22px;
+  padding-left: 24px;
 }
 
 .doc li {
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
 .summary {
   background: var(--accent-soft);
   border-radius: 14px;
-  padding: 18px 20px;
-  margin: 0 0 28px;
+  padding: 16px 24px;
+  margin: 0 0 32px;
 }
 
 .summary strong {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   color: var(--heading);
 }
 
@@ -1112,20 +1129,20 @@ a:hover {
 .toc {
   background: var(--surface-muted);
   border-radius: 14px;
-  padding: 16px 20px;
-  margin: 0 0 28px;
+  padding: 16px 24px;
+  margin: 0 0 32px;
   font-size: 0.95rem;
 }
 
 .toc strong {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   color: var(--heading);
 }
 
 .toc ol {
   margin: 0;
-  padding-left: 20px;
+  padding-left: 24px;
   columns: 2;
   column-gap: 32px;
 }
@@ -1145,7 +1162,7 @@ th,
 td {
   text-align: left;
   vertical-align: top;
-  padding: 10px 12px;
+  padding: 8px 12px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -1212,7 +1229,7 @@ code {
   justify-content: space-between;
   gap: 8px 24px;
   margin-top: 8px;
-  padding-top: 20px;
+  padding-top: 24px;
   border-top: 1px solid var(--border);
 }
 
@@ -1227,6 +1244,9 @@ code {
 }
 
 @media (min-width: 720px) {
+  :root {
+    --space-section: 96px;
+  }
   .cards {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1238,7 +1258,7 @@ code {
     grid-template-columns: repeat(2, 1fr);
   }
   .doc {
-    padding: 44px 48px;
+    padding: 48px 48px;
   }
   .footer-cols {
     grid-template-columns: repeat(4, 1fr);
@@ -1257,6 +1277,14 @@ code {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  /* Header: no scroll-linked fade; just keep it solid so it stays readable over content */
+  .site-header {
+    animation: none;
+    background: var(--header-solid);
+    border-bottom-color: var(--header-border);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
   }
   .card,
   .feature,
