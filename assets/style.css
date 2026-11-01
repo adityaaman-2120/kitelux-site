@@ -543,6 +543,183 @@ a:hover {
   }
 }
 
+/* Featured product (home) and product-page hero: text left, CSS-only phone frame right */
+.featured {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.card.featured {
+  padding: 28px 24px;
+}
+
+.featured-body p {
+  margin: 0 0 14px;
+  color: var(--text-muted);
+  max-width: 520px;
+}
+
+.featured-body .badge {
+  margin-bottom: 0;
+}
+
+.featured-body .app-head {
+  margin-bottom: 10px;
+}
+
+.featured-body .app-head img {
+  width: 64px;
+  height: 64px;
+}
+
+.featured-body h1,
+.featured-body h3 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  line-height: 1.1;
+}
+
+.featured-body .links {
+  margin-top: 8px;
+}
+
+.points {
+  list-style: none;
+  margin: 4px 0 24px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.points li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--text);
+}
+
+.points li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.45em;
+  width: 11px;
+  height: 6px;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+.featured-visual {
+  display: flex;
+  justify-content: center;
+}
+
+/* Phone frame: pure CSS (rounded rectangle + notch). The screen shows a real screenshot, or the icon. */
+.phone {
+  position: relative;
+  width: 100%;
+  max-width: 230px;
+  aspect-ratio: 9 / 19;
+  border-radius: 38px;
+  border: 9px solid #05081a;
+  background: #05081a;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 28px 60px rgba(10, 16, 40, 0.4),
+    0 0 40px rgba(255, 181, 71, 0.1);
+  overflow: hidden;
+}
+
+.phone-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 2;
+  width: 38%;
+  height: 20px;
+  transform: translateX(-50%);
+  background: #05081a;
+  border-radius: 0 0 14px 14px;
+}
+
+.phone-screen {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0a1028 0%, #121b45 60%, #1c2257 100%);
+}
+
+.phone-screen object {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.phone-screen .phone-icon {
+  width: 42%;
+  height: auto;
+  margin: 0;
+  filter: drop-shadow(0 8px 24px rgba(255, 181, 71, 0.3));
+}
+
+.more-pill {
+  display: inline-block;
+  margin: 20px 0 0;
+  padding: 6px 16px;
+  border: 1px dashed var(--card-border);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+@media (min-width: 760px) {
+  .featured {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 48px;
+  }
+  .card.featured {
+    padding: 44px 48px;
+  }
+}
+
+/* Product-page hero uses the featured layout without a card */
+.hero-product {
+  text-align: left;
+}
+
+.hero-product .featured-body p {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 520px;
+}
+
+/* Scroll reveal (only active when /assets/site.js adds .reveal-ready; content is visible without JS
+   and with reduced motion) */
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media print {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Section heading */
 .section-heading {
   margin: 0 0 24px;

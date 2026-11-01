@@ -13,6 +13,10 @@ Static website for Kitelux, hosted on Cloudflare Pages from this GitHub repo. Th
 /404.html              Served automatically by Cloudflare Pages
 /assets/style.css      The one shared stylesheet (components documented at the top)
 /assets/fonts/         Self-hosted Inter variable font (woff2) and its SIL OFL license
+/assets/site.js        The only script: scroll-reveal (progressive enhancement; pages work without it)
+/assets/screens/       Real app screenshots (portrait ~9:19), e.g. kitevault-1.png. Shown inside the
+                       CSS phone frame on the home page and /vault/. While a file is missing, the
+                       frame shows the product icon instead. Never use mock-ups of the app UI.
 /_headers              Security headers (strict CSP: no inline styles or scripts)
 /robots.txt  /sitemap.xml  /.well-known/security.txt
 ```

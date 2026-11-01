@@ -34,6 +34,7 @@
     />
     <meta name="twitter:image" content="https://kitelux.com/assets/og-kitelux.png" />
 
+    <script src="/assets/site.js"></script>
     <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/style.css" />
   </head>
@@ -164,13 +165,13 @@
         </div>
       </section>
 
-      <section class="section" id="products" aria-labelledby="products-title">
+      <section class="section reveal" id="products" aria-labelledby="products-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="products-title">Our products</h2>
           </div>
-          <div class="cards">
-            <article class="card product-card">
+          <article class="card featured">
+            <div class="featured-body">
               <div class="app-head">
                 <img src="/assets/kitevault-icon.png" alt="" />
                 <h3>KiteVault</h3>
@@ -180,21 +181,35 @@
                 Offline-first password manager. Encrypted on your phone with AES-256-GCM and
                 Argon2id.
               </p>
+              <ul class="points">
+                <li>Encrypted on your device with AES-256-GCM and Argon2id</li>
+                <li>Optional encrypted Google Drive backup</li>
+                <li>No ads, no tracking</li>
+              </ul>
               <div class="links">
-                <a class="btn btn-secondary" href="/vault/">Learn more</a>
+                <a class="btn btn-primary" href="/vault/">Explore KiteVault</a>
                 <a class="btn btn-secondary" href="/vault/privacy/">Privacy Policy</a>
               </div>
-            </article>
-
-            <article class="card card-muted">
-              <h3>More apps in development</h3>
-              <p>We're working on more small, privacy-first apps. Nothing to announce yet.</p>
-            </article>
-          </div>
+            </div>
+            <div class="featured-visual">
+              <div class="phone">
+                <span class="phone-notch" aria-hidden="true"></span>
+                <div class="phone-screen">
+                  <!-- TODO: add real screenshots to assets/screens/ (kitevault-1.png, portrait ~9:19). Until the file exists,
+                       the browser shows the fallback content below (the KiteVault icon). Never draw a fake app UI here.
+                       When the screenshot is added, update aria-label to describe what it shows. -->
+                  <object type="image/png" data="/assets/screens/kitevault-1.png" aria-label="Screenshot of the KiteVault app">
+                    <img class="phone-icon" src="/assets/kitevault-icon.png" alt="KiteVault icon" />
+                  </object>
+                </div>
+              </div>
+            </div>
+          </article>
+          <p class="more-pill">More Kitelux apps are in development.</p>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="principles-title">
+      <section class="section reveal" aria-labelledby="principles-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="principles-title">Our principles</h2>
@@ -223,7 +238,7 @@
         </div>
       </section>
 
-      <section class="strip" aria-labelledby="about-title">
+      <section class="strip reveal" aria-labelledby="about-title">
         <div class="wrap">
           <h2 id="about-title">About Kitelux</h2>
           <p>
@@ -233,7 +248,7 @@
         </div>
       </section>
 
-      <section class="strip" id="contact" aria-labelledby="contact-title">
+      <section class="strip reveal" id="contact" aria-labelledby="contact-title">
         <div class="wrap">
           <h2 id="contact-title">Contact</h2>
           <p>Questions, feedback or support: <a href="mailto:support@kitelux.com">support@kitelux.com</a></p>

@@ -18,7 +18,7 @@ No user counts, ratings, reviews, testimonials, press logos, partner logos, team
 - Plain static HTML plus **one shared CSS file** (`assets/style.css`).
 - No frameworks, no build step, no external CDNs, no analytics, no tracking, no cookies.
 - Fonts: exactly ONE self-hosted variable font (Inter, SIL OFL, in `assets/fonts/` with its license). No other web fonts and no font CDNs (Google Fonts etc.).
-- JavaScript only if strictly necessary. Default is none; justify it to the user before adding any.
+- JavaScript only if strictly necessary. Default is none; justify it to the user before adding any. Currently the only script is `/assets/site.js` (scroll reveal; progressive enhancement, pages work fully without it). Never inline scripts (CSP).
 
 ### 3. URLs that must never break
 - `/`

@@ -32,6 +32,7 @@
     />
     <meta name="twitter:image" content="https://kitelux.com/assets/og-kitelux.png" />
 
+    <script src="/assets/site.js"></script>
     <link rel="preload" href="/assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/style.css" />
   </head>
@@ -56,14 +57,37 @@
           <nav class="crumbs" aria-label="Breadcrumb">
             <a href="/">Kitelux</a> / <span aria-current="page">KiteVault</span>
           </nav>
-          <img class="app-icon" src="/assets/kitevault-icon.png" alt="KiteVault icon" />
-          <h1>KiteVault</h1>
-          <p><span class="badge badge-testing">In testing · Android</span></p>
-          <p>Offline-first password manager for Android.</p>
+          <div class="featured">
+            <div class="featured-body">
+              <div class="app-head">
+                <img src="/assets/kitevault-icon.png" alt="KiteVault icon" />
+                <h1>KiteVault</h1>
+              </div>
+              <p><span class="badge badge-testing">In testing · Android</span></p>
+              <p>Offline-first password manager for Android.</p>
+              <div class="links">
+                <a class="btn btn-primary" href="#availability-title">Help test KiteVault</a>
+                <a class="btn btn-secondary" href="/vault/privacy/">Privacy Policy</a>
+              </div>
+            </div>
+            <div class="featured-visual">
+              <div class="phone">
+                <span class="phone-notch" aria-hidden="true"></span>
+                <div class="phone-screen">
+                  <!-- TODO: add real screenshots to assets/screens/ (kitevault-1.png, portrait ~9:19). Until the file exists,
+                       the browser shows the fallback content below (the KiteVault icon). Never draw a fake app UI here.
+                       When the screenshot is added, update aria-label to describe what it shows. -->
+                  <object type="image/png" data="/assets/screens/kitevault-1.png" aria-label="Screenshot of the KiteVault app">
+                    <img class="phone-icon" src="/assets/kitevault-icon.png" alt="KiteVault icon" />
+                  </object>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="section" aria-labelledby="what-title">
+      <section class="section reveal" aria-labelledby="what-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="what-title">What it is</h2>
@@ -76,7 +100,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="features-title">
+      <section class="section reveal" aria-labelledby="features-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="features-title">Features</h2>
@@ -139,7 +163,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="security-title">
+      <section class="section reveal" aria-labelledby="security-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="security-title">Security model</h2>
@@ -161,7 +185,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="limits-title">
+      <section class="section reveal" aria-labelledby="limits-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="limits-title">What it cannot protect against</h2>
@@ -185,7 +209,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="availability-title">
+      <section class="section reveal" aria-labelledby="availability-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="availability-title">Availability</h2>
@@ -199,7 +223,7 @@
         </div>
       </section>
 
-      <section class="section" aria-labelledby="faq-title">
+      <section class="section reveal" aria-labelledby="faq-title">
         <div class="wrap">
           <div class="section-heading">
             <h2 id="faq-title">Frequently asked questions</h2>
@@ -236,7 +260,7 @@
         </div>
       </section>
 
-      <section class="strip" aria-labelledby="legal-title">
+      <section class="strip reveal" aria-labelledby="legal-title">
         <div class="wrap">
           <h2 id="legal-title">Legal</h2>
           <p class="links">
