@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KiteVault – Offline-first password manager for Android | Kitelux</title>
+    <meta
+      name="description"
+      content="KiteVault is an offline-first password manager for Android. Your vault is encrypted on your phone with AES-256-GCM and Argon2id. Currently in testing."
+    />
+    <link rel="canonical" href="https://kitelux.com/vault/" />
+    <meta name="theme-color" content="#0E1630" />
+
+    <!-- TODO: assets/favicon-32.png and assets/apple-touch-icon.png do not exist yet. Generate them from the Kitelux logo. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kitelux" />
+    <meta property="og:title" content="KiteVault – Offline-first password manager for Android" />
+    <meta
+      property="og:description"
+      content="Encrypted on your phone with AES-256-GCM and Argon2id. No ads, no tracking. Currently in testing."
+    />
+    <meta property="og:url" content="https://kitelux.com/vault/" />
+    <!-- TODO: assets/og-kitelux.png does not exist yet (recommended 1200x630). -->
+    <meta property="og:image" content="https://kitelux.com/assets/og-kitelux.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="KiteVault – Offline-first password manager for Android" />
+    <meta
+      name="twitter:description"
+      content="Encrypted on your phone with AES-256-GCM and Argon2id. No ads, no tracking. Currently in testing."
+    />
+    <meta name="twitter:image" content="https://kitelux.com/assets/og-kitelux.png" />
+
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <!-- TODO: confirm extension of the Kitelux logo (assets/kitelux-logo.svg or .png). File not added yet. -->
+        <a class="brand" href="/"><img src="/assets/kitelux-logo.png" alt="" />Kitelux</a>
+        <nav class="nav" aria-label="Main">
+          <a href="/#products" aria-current="page">Products</a>
+          <a href="/security/">Security</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero hero-product">
+        <div class="wrap">
+          <nav class="crumbs" aria-label="Breadcrumb">
+            <a href="/">Kitelux</a> / <span aria-current="page">KiteVault</span>
+          </nav>
+          <!-- TODO: assets/kitevault-icon.png not added yet. -->
+          <img class="app-icon" src="/assets/kitevault-icon.png" alt="KiteVault icon" />
+          <h1>KiteVault</h1>
+          <p><span class="badge badge-testing">In testing · Android</span></p>
+          <p>Offline-first password manager for Android.</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="what-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="what-title">What it is</h2>
+          </div>
+          <p class="prose">
+            KiteVault is an offline-first password manager for Android. The logins, notes, folders,
+            2FA secrets and settings you put into it are saved in a single encrypted file in the
+            app's private storage on your phone. Kitelux runs no servers that receive your vault.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="features-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="features-title">Features</h2>
+          </div>
+          <div class="feature-grid">
+            <div class="feature">
+              <h3>Encrypted vault</h3>
+              <p>Everything is stored in one encrypted file on your phone, never on Kitelux servers.</p>
+            </div>
+            <div class="feature">
+              <h3>Biometric unlock</h3>
+              <p>
+                Optional fingerprint or face unlock, handled by Android. KiteVault never receives or
+                stores your biometric data.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Autofill</h3>
+              <p>
+                Optional. Enable KiteVault as your Android autofill provider to get matching logins
+                in apps and browsers. Matching happens on the device.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>TOTP 2FA with QR scan</h3>
+              <p>
+                Scan a 2FA QR code with the camera when you add one. Images are processed on the
+                device and are not saved or sent anywhere.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Password breach check</h3>
+              <p>
+                Optional check against Have I Been Pwned using k-anonymity: only the first 5
+                characters of a password's SHA-1 hash are sent.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Optional Google Drive backup</h3>
+              <p>
+                Upload your already-encrypted vault to the hidden <code>drive.appdata</code> folder
+                in your own Google Drive. The data goes directly between your phone and Google.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Export</h3>
+              <p>
+                Export your vault to a file, for example CSV or PDF. Exported files are not
+                encrypted.
+              </p>
+            </div>
+            <div class="feature">
+              <h3>Clipboard auto-clear</h3>
+              <p>
+                When you copy a password or code, KiteVault clears the clipboard automatically after
+                a short delay.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="security-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="security-title">Security model</h2>
+          </div>
+          <ul class="prose checklist">
+            <li>Your vault is encrypted with AES-256-GCM.</li>
+            <li>The encryption key is derived from your master password with Argon2id.</li>
+            <li>Your master password is never stored, anywhere, and never leaves your phone.</li>
+            <li>Kitelux has no servers that receive your vault or your data.</li>
+            <li>
+              <strong>We cannot recover your vault.</strong> If you forget your master password and
+              have no recovery key, nobody can open it, including us.
+            </li>
+            <li>Decrypted data is held in memory only while the vault is unlocked.</li>
+          </ul>
+          <p class="prose">
+            We use vetted, widely reviewed cryptographic libraries and never custom cryptography.
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="limits-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="limits-title">What it cannot protect against</h2>
+            <p>No software is perfectly secure. Be aware of these limits.</p>
+          </div>
+          <ul class="prose checklist">
+            <!-- TODO: "rooted or malware-infected phone" is not stated in vault/privacy/. Confirm wording before launch. -->
+            <li>
+              A rooted or malware-infected phone. A strong master password, a locked phone and an
+              up-to-date Android are important parts of your protection.
+            </li>
+            <li>
+              A forgotten master password without a recovery key. The vault cannot be opened by
+              anyone.
+            </li>
+            <li>
+              Unencrypted exports. A file you export (for example CSV or PDF) is not encrypted; you
+              choose where it goes and you are responsible for it.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="availability-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="availability-title">Availability</h2>
+          </div>
+          <!-- TODO: add the Google Play link here after KiteVault is publicly released. -->
+          <p class="prose">
+            Currently in testing on Google Play. Want to help test? Email
+            <a href="mailto:support@kitelux.com?subject=KiteVault%20tester">support@kitelux.com</a>
+            with the subject "KiteVault tester".
+          </p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="faq-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="faq-title">Frequently asked questions</h2>
+          </div>
+          <div class="faq prose">
+            <h3>Does KiteVault collect my data?</h3>
+            <p>
+              No. Kitelux does not collect any personal data. The app contains no analytics,
+              advertising, tracking or crash-reporting libraries.
+            </p>
+            <h3>What happens if I forget my master password?</h3>
+            <p>
+              Your master password is never stored, and we cannot recover your data. If you have no
+              recovery key, the vault cannot be opened by anyone, including us.
+            </p>
+            <h3>Does KiteVault use the internet?</h3>
+            <p>
+              Only for two optional features: Google Drive backup and the password breach check.
+              There are no other network calls.
+            </p>
+            <h3>What is sent when I run the password breach check?</h3>
+            <p>
+              Your password is hashed (SHA-1) on your phone and only the first 5 characters of the
+              hash are sent to the Have I Been Pwned service. Your password, its full hash and which
+              entry it belongs to are never sent. As with any internet request, the service can see
+              your IP address.
+            </p>
+            <h3>Are exported files encrypted?</h3>
+            <p>
+              No. If you export your vault to a file (for example CSV or PDF), that file is not
+              encrypted. You choose where it goes and you are responsible for it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="strip" aria-labelledby="legal-title">
+        <div class="wrap">
+          <h2 id="legal-title">Legal</h2>
+          <p class="links">
+            <a class="btn btn-secondary" href="/vault/privacy/">Privacy Policy</a>
+            <a class="btn btn-secondary" href="/vault/terms/">Terms of Service</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h2>Products</h2>
+            <ul>
+              <li><a href="/vault/">KiteVault</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>Company</h2>
+            <ul>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/security/">Security</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>Legal</h2>
+            <ul>
+              <li><a href="/vault/privacy/">KiteVault Privacy</a></li>
+              <li><a href="/vault/terms/">KiteVault Terms</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Kitelux. Kitelux is the trading name of Aditya Aman, Kolkata, India.</p>
+          <p><a href="mailto:support@kitelux.com">support@kitelux.com</a></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

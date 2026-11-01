@@ -3,24 +3,52 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kitelux – Privacy-first apps</title>
+    <title>Kitelux – Software that keeps your data yours</title>
     <meta
       name="description"
-      content="Kitelux builds privacy-first apps. KiteVault is an offline, Android password manager with no ads, no tracking and no analytics."
+      content="Kitelux builds small, focused apps that work offline and respect your privacy. No ads. No tracking. No Kitelux account needed. Home of KiteVault, an offline-first Android password manager."
     />
+    <link rel="canonical" href="https://kitelux.com/" />
     <meta name="theme-color" content="#0E1630" />
-    <link rel="icon" type="image/png" href="assets/kitelux-mark.png" />
-    <link rel="stylesheet" href="assets/style.css" />
+
+    <!-- TODO: assets/favicon-32.png and assets/apple-touch-icon.png do not exist yet. Generate them from the Kitelux logo. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kitelux" />
+    <meta property="og:title" content="Kitelux – Software that keeps your data yours" />
+    <meta
+      property="og:description"
+      content="Small, focused apps that work offline and respect your privacy. No ads. No tracking."
+    />
+    <meta property="og:url" content="https://kitelux.com/" />
+    <!-- TODO: assets/og-kitelux.png does not exist yet (recommended 1200x630). -->
+    <meta property="og:image" content="https://kitelux.com/assets/og-kitelux.png" />
+    <meta property="og:image:alt" content="Kitelux logo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kitelux – Software that keeps your data yours" />
+    <meta
+      name="twitter:description"
+      content="Small, focused apps that work offline and respect your privacy. No ads. No tracking."
+    />
+    <meta name="twitter:image" content="https://kitelux.com/assets/og-kitelux.png" />
+
+    <link rel="stylesheet" href="/assets/style.css" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
+
     <header class="site-header">
       <div class="wrap">
-        <a class="brand" href="/"><img src="assets/kitelux-mark.png" alt="" />Kitelux</a>
+        <!-- TODO: confirm extension of the Kitelux logo (assets/kitelux-logo.svg or .png). File not added yet. -->
+        <a class="brand" href="/"><img src="/assets/kitelux-logo.png" alt="" />Kitelux</a>
         <nav class="nav" aria-label="Main">
-          <a href="vault/privacy/">Privacy</a>
-          <a href="vault/terms/">Terms</a>
-          <a href="mailto:support@kitelux.com">Contact</a>
+          <a href="/#products">Products</a>
+          <a href="/security/">Security</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
         </nav>
       </div>
     </header>
@@ -28,60 +56,125 @@
     <main id="main">
       <section class="hero">
         <div class="wrap">
-          <img src="assets/kitelux-mark.png" alt="Kitelux kite logo" />
+          <img src="/assets/kitelux-logo.png" alt="Kitelux logo" />
           <h1>Software that keeps your data yours.</h1>
           <p>
             Kitelux builds small, focused apps that work offline and respect your privacy. No ads.
-            No tracking. No accounts.
+            No tracking. No Kitelux account needed.
+          </p>
+          <p class="hero-actions">
+            <a class="btn btn-primary" href="/vault/">Explore KiteVault</a>
           </p>
         </div>
       </section>
 
-      <div class="wrap">
-        <div class="cards">
-          <article class="card">
-            <span class="tag">Android</span>
-            <div class="app-head">
-              <img src="assets/kitelux-mark.png" alt="" />
-              <h2>KiteVault</h2>
-            </div>
-            <p>
-              An offline-first password manager. Your vault is encrypted on your phone with
-              AES-256-GCM and a key derived from your master password with Argon2id. It never
-              touches our servers, because we don't have any.
-            </p>
-            <div class="links">
-              <a class="btn" href="vault/privacy/">Privacy Policy</a>
-              <a class="btn" href="vault/terms/">Terms of Service</a>
-            </div>
-          </article>
-        </div>
+      <section class="section" id="products" aria-labelledby="products-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="products-title">Our products</h2>
+          </div>
+          <div class="cards">
+            <article class="card product-card">
+              <div class="app-head">
+                <!-- TODO: assets/kitevault-icon.png not added yet. -->
+                <img src="/assets/kitevault-icon.png" alt="" />
+                <h3>KiteVault</h3>
+              </div>
+              <p><span class="badge badge-testing">In testing · Android</span></p>
+              <p>
+                Offline-first password manager. Encrypted on your phone with AES-256-GCM and
+                Argon2id.
+              </p>
+              <div class="links">
+                <a class="btn btn-secondary" href="/vault/">Learn more</a>
+                <a class="btn btn-secondary" href="/vault/privacy/">Privacy Policy</a>
+              </div>
+            </article>
 
-        <section class="principles" aria-label="Our principles">
-          <div class="principle">
-            <h3>Offline first</h3>
-            <p>Your data lives on your device. Network features are optional and off by default.</p>
+            <article class="card card-muted">
+              <h3>More apps in development</h3>
+              <p>We're working on more small, privacy-first apps. Nothing to announce yet.</p>
+            </article>
           </div>
-          <div class="principle">
-            <h3>No tracking</h3>
-            <p>No analytics, no advertising, no crash-report services, no third-party trackers.</p>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="principles-title">
+        <div class="wrap">
+          <div class="section-heading">
+            <h2 id="principles-title">Our principles</h2>
           </div>
-          <div class="principle">
-            <h3>Vetted cryptography</h3>
-            <p>We use well-audited libraries. We never write our own cryptography.</p>
+          <div class="feature-grid feature-grid-4">
+            <div class="feature">
+              <h3>Offline first</h3>
+              <p>Your data lives on your device. Network features are optional and off by default.</p>
+            </div>
+            <div class="feature">
+              <h3>No tracking</h3>
+              <p>No analytics, no advertising, no crash-report services, no third-party trackers.</p>
+            </div>
+            <div class="feature">
+              <h3>Vetted cryptography</h3>
+              <p>We use well-audited libraries. We never write our own cryptography.</p>
+            </div>
+            <div class="feature">
+              <h3>Honest about limits</h3>
+              <p>
+                We tell you what we can't protect against, like a compromised phone or a forgotten
+                master password.
+              </p>
+            </div>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      <section class="strip" aria-labelledby="about-title">
+        <div class="wrap">
+          <h2 id="about-title">About Kitelux</h2>
+          <p>
+            Kitelux is an independent software studio based in Kolkata, India, founded by Aditya
+            Aman. <a href="/about/">Read more about Kitelux</a>.
+          </p>
+        </div>
+      </section>
+
+      <section class="strip" id="contact" aria-labelledby="contact-title">
+        <div class="wrap">
+          <h2 id="contact-title">Contact</h2>
+          <p>Questions, feedback or support: <a href="mailto:support@kitelux.com">support@kitelux.com</a></p>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
       <div class="wrap">
-        <span>© 2026 Kitelux. All rights reserved.</span>
-        <nav aria-label="Footer">
-          <a href="vault/privacy/">Privacy Policy</a>
-          <a href="vault/terms/">Terms of Service</a>
-          <a href="mailto:support@kitelux.com">support@kitelux.com</a>
-        </nav>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h2>Products</h2>
+            <ul>
+              <li><a href="/vault/">KiteVault</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>Company</h2>
+            <ul>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/security/">Security</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>Legal</h2>
+            <ul>
+              <li><a href="/vault/privacy/">KiteVault Privacy</a></li>
+              <li><a href="/vault/terms/">KiteVault Terms</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Kitelux. Kitelux is the trading name of Aditya Aman, Kolkata, India.</p>
+          <p><a href="mailto:support@kitelux.com">support@kitelux.com</a></p>
+        </div>
       </div>
     </footer>
   </body>

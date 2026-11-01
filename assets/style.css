@@ -1,4 +1,27 @@
-/* Kitelux site. Palette matches the KiteVault app: night blue #0E1630, amber #FFB547. */
+/*
+ * Kitelux design system. One shared stylesheet for every page. No fonts or assets loaded externally.
+ * Palette: night blue #0E1630, amber #FFB547. Light/dark via prefers-color-scheme.
+ *
+ * COMPONENTS (class → purpose)
+ *   .site-header > .wrap > .brand + nav.nav   Header. Nav: Products, Security, About, Contact.
+ *                                             Wraps onto extra lines on small screens (no JS, no hamburger).
+ *                                             Mark current page with aria-current="page".
+ *   .site-footer                              Footer, 4 columns on desktop, stacked on mobile:
+ *     .footer-cols > .footer-col (h2 + ul)      Products | Company | Legal  (+ brand column optional)
+ *     .footer-bottom                            © line + support email.
+ *   .card / .product-card                     Surface box. Product card = .card.product-card with
+ *                                             .app-head (icon + h2), a .badge, p, and .links buttons.
+ *   .badge  + .badge-testing | .badge-available | .badge-soon
+ *                                             Status pill. (.tag is a legacy alias of the base badge.)
+ *   .section-heading                          Centered/left heading block: h2 + optional p, inside sections.
+ *   .btn.btn-primary | .btn.btn-secondary     Buttons. Plain .btn behaves as secondary (legacy).
+ *   .feature-grid > .feature                  Responsive grid of short feature blurbs (h3 + p).
+ *                                             (.principles / .principle are legacy aliases.)
+ *   .hero, .doc-head, .doc, .summary, .toc    Home hero and legal-document layout.
+ *
+ * Use tokens (var(--...)) instead of hard-coded colors in pages.
+ */
+
 :root {
   --bg: #f4f5fa;
   --surface: #ffffff;
@@ -12,6 +35,17 @@
   --accent-soft: #fff1dc;
   --header: #1b2a5c;
   --shadow: 0 1px 2px rgba(14, 22, 48, 0.06), 0 8px 24px rgba(14, 22, 48, 0.06);
+
+  /* Status badges */
+  --badge-testing-bg: var(--accent-soft);
+  --badge-testing-fg: var(--accent);
+  --badge-available-bg: #dcf5e3;
+  --badge-available-fg: #14532d;
+  --badge-soon-bg: var(--surface-muted);
+  --badge-soon-fg: var(--text-muted);
+
+  --font-sans:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,9 +62,13 @@
     --accent-soft: #2b2f4e;
     --header: #0e1630;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+
+    --badge-available-bg: #17382b;
+    --badge-available-fg: #9be7b4;
   }
 }
 
+/* Base */
 * {
   box-sizing: border-box;
 }
@@ -44,8 +82,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family:
-    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -90,19 +127,27 @@ a:hover {
   max-width: 760px;
 }
 
-/* Header */
+/* Site header + nav (works without JS: links wrap onto further lines on narrow screens) */
 .site-header {
   background: var(--header);
   color: #fff;
 }
 
+/* The header background is dark in both modes, so use amber focus rings here. */
+.site-header :focus-visible,
+.hero :focus-visible,
+.doc-head :focus-visible {
+  outline-color: #ffb547;
+}
+
 .site-header .wrap {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  gap: 4px 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .brand {
@@ -114,6 +159,7 @@ a:hover {
   font-weight: 700;
   font-size: 1.15rem;
   letter-spacing: 0.01em;
+  padding: 4px 0;
 }
 
 .brand img {
@@ -123,13 +169,15 @@ a:hover {
 
 .nav {
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 0 20px;
   font-size: 0.95rem;
 }
 
 .nav a {
   color: #dfe4f7;
   text-decoration: none;
+  padding: 8px 0; /* comfortable tap target */
 }
 
 .nav a:hover,
@@ -165,7 +213,31 @@ a:hover {
   font-size: 1.1rem;
 }
 
-/* Cards */
+/* Section heading */
+.section-heading {
+  margin: 0 0 24px;
+  max-width: 640px;
+}
+
+.section-heading h2 {
+  margin: 0 0 6px;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.section-heading.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Cards / product card */
 .cards {
   display: grid;
   gap: 20px;
@@ -191,17 +263,13 @@ a:hover {
   color: var(--text-muted);
 }
 
-.tag {
-  display: inline-block;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 999px;
-  margin-bottom: 12px;
+.product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card .links {
+  margin-top: auto;
 }
 
 .app-head {
@@ -223,6 +291,38 @@ a:hover {
   margin: 0;
 }
 
+/* Status badge (.tag kept as a legacy alias of the base style) */
+.badge,
+.tag {
+  display: inline-block;
+  background: var(--badge-testing-bg);
+  color: var(--badge-testing-fg);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.badge-testing {
+  background: var(--badge-testing-bg);
+  color: var(--badge-testing-fg);
+}
+
+.badge-available {
+  background: var(--badge-available-bg);
+  color: var(--badge-available-fg);
+}
+
+.badge-soon {
+  background: var(--badge-soon-bg);
+  color: var(--badge-soon-fg);
+}
+
+/* Buttons: .btn alone = secondary (outline) */
 .links {
   display: flex;
   flex-wrap: wrap;
@@ -235,7 +335,10 @@ a:hover {
   border-radius: 10px;
   font-weight: 600;
   font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
   text-decoration: none;
+  background: transparent;
   border: 1.5px solid var(--primary);
   color: var(--primary);
 }
@@ -245,12 +348,30 @@ a:hover {
   color: var(--on-primary);
 }
 
+.btn-primary {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--primary);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary);
+}
+
+/* Feature grid (.principles / .principle kept as legacy aliases) */
+.feature-grid,
 .principles {
   display: grid;
   gap: 16px;
   padding: 8px 0 64px;
 }
 
+.feature,
 .principle {
   padding: 20px;
   border-left: 3px solid var(--accent);
@@ -258,15 +379,168 @@ a:hover {
   border-radius: 0 12px 12px 0;
 }
 
+.feature h3,
 .principle h3 {
   margin: 0 0 4px;
   font-size: 1.05rem;
 }
 
+.feature p,
 .principle p {
   margin: 0;
   color: var(--text-muted);
   font-size: 0.95rem;
+}
+
+/* Page sections, muted card, text strips (home page) */
+.section {
+  padding-top: 56px;
+}
+
+.section .cards {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 1.4rem;
+}
+
+.app-head h3 {
+  margin: 0;
+}
+
+.card-muted {
+  background: var(--surface-muted);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.card-muted h3,
+.card-muted p {
+  color: var(--text-muted);
+}
+
+.hero-actions {
+  margin-top: 24px;
+}
+
+.strip {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+
+.strip + .strip {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.strip h2 {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
+}
+
+.strip p {
+  margin: 0;
+  max-width: 640px;
+  color: var(--text-muted);
+}
+
+/* Links on the muted contents box: accent is below 4.5:1 here in light mode */
+.toc a {
+  color: var(--primary);
+}
+
+/* Buttons on the hero, which is dark navy in both modes */
+.hero .btn-primary {
+  background: #ffb547;
+  border-color: #ffb547;
+  color: #0e1630;
+}
+
+.hero .btn-primary:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #0e1630;
+}
+
+.hero .btn-secondary {
+  color: #fff;
+  border-color: #fff;
+}
+
+.hero .btn-secondary:hover {
+  background: #fff;
+  color: #0e1630;
+}
+
+/* Buttons placed on the dark hero (404) */
+.links-center {
+  justify-content: center;
+}
+
+.btn-on-dark {
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn-on-dark:hover {
+  background: #fff;
+  color: #0e1630;
+}
+
+/* Product page */
+.hero-product {
+  padding: 40px 0 56px;
+}
+
+.hero .crumbs {
+  font-size: 0.9rem;
+  color: #b7bfdd;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.hero .crumbs a {
+  color: #ffb547;
+}
+
+.hero .app-icon {
+  border-radius: 22px;
+  background: #0e1630;
+  padding: 10px;
+}
+
+.hero-product .badge {
+  margin-bottom: 4px;
+}
+
+.prose {
+  max-width: 680px;
+  margin: 0;
+}
+
+.checklist {
+  padding-left: 22px;
+}
+
+.checklist li {
+  margin: 8px 0;
+}
+
+.faq h3 {
+  margin: 24px 0 4px;
+  font-size: 1.05rem;
+}
+
+.faq h3:first-child {
+  margin-top: 0;
+}
+
+.faq p {
+  margin: 0;
+  color: var(--text-muted);
 }
 
 /* Legal pages */
@@ -394,10 +668,11 @@ th {
   font-weight: 600;
 }
 
-/* Footer */
+/* Footer: .footer-cols (4 columns) + .footer-bottom.
+   Legacy markup (.wrap with a span and a nav) keeps working. */
 .site-footer {
   border-top: 1px solid var(--border);
-  padding: 28px 0 40px;
+  padding: 32px 0 40px;
   color: var(--text-muted);
   font-size: 0.92rem;
 }
@@ -415,15 +690,73 @@ th {
   gap: 18px;
 }
 
+.footer-cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  flex: 1 1 100%;
+}
+
+.footer-col h2 {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-col li {
+  margin: 0;
+}
+
+.footer-col a {
+  display: inline-block;
+  padding: 4px 0;
+}
+
+.footer-bottom {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+@media (min-width: 560px) {
+  .footer-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (min-width: 720px) {
   .cards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
+  .feature-grid,
   .principles {
     grid-template-columns: repeat(3, 1fr);
   }
+  .feature-grid.feature-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .doc {
     padding: 44px 48px;
+  }
+  .footer-cols {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -432,7 +765,7 @@ th {
     columns: 1;
   }
   .nav {
-    gap: 14px;
+    gap: 0 16px;
   }
 }
 

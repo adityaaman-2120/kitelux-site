@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Security – Kitelux</title>
+    <meta name="description" content="How Kitelux approaches security: vetted cryptography, no servers, and how to report a vulnerability responsibly." />
+    <link rel="canonical" href="https://kitelux.com/security/" />
+    <meta name="theme-color" content="#0E1630" />
+
+    <!-- TODO: assets/favicon-32.png and assets/apple-touch-icon.png do not exist yet. Generate them from the Kitelux logo. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kitelux" />
+    <meta property="og:title" content="Security – Kitelux" />
+    <meta property="og:description" content="How Kitelux approaches security: vetted cryptography, no servers, and how to report a vulnerability responsibly." />
+    <meta property="og:url" content="https://kitelux.com/security/" />
+    <!-- TODO: assets/og-kitelux.png does not exist yet (recommended 1200x630). -->
+    <meta property="og:image" content="https://kitelux.com/assets/og-kitelux.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap">
+        <!-- TODO: confirm extension of the Kitelux logo (assets/kitelux-logo.svg or .png). File not added yet. -->
+        <a class="brand" href="/"><img src="/assets/kitelux-logo.png" alt="" />Kitelux</a>
+        <nav class="nav" aria-label="Main">
+          <a href="/#products">Products</a>
+          <a href="/security/" aria-current="page">Security</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="doc-head">
+      <div class="wrap narrow">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Kitelux</a> / <span aria-current="page">Security</span></nav>
+        <h1>Security</h1>
+        <p>Cryptography, architecture and responsible disclosure</p>
+      </div>
+    </div>
+
+    <main id="main" class="wrap narrow">
+      <article class="doc">
+        <h2>Cryptography approach</h2>
+        <p>
+          KiteVault encrypts your vault with AES-256-GCM. The key is derived from your master
+          password with Argon2id. We use vetted, widely reviewed cryptographic libraries and never
+          write our own cryptography.
+        </p>
+
+        <h2>No-servers architecture</h2>
+        <p>
+          Kitelux runs no servers that receive your vault, passwords or usage. Your vault is stored
+          as a single encrypted file in the app's private storage on your phone, and your master
+          password is never stored and never leaves your phone. Because of this, we cannot see,
+          recover or reset your data or master password.
+        </p>
+        <p>
+          The only network features are optional: Google Drive backup (an already-encrypted file,
+          sent directly between your phone and your own Google Drive) and the password breach check
+          (only the first 5 characters of a SHA-1 hash are sent). See the
+          <a href="/vault/privacy/">KiteVault Privacy Policy</a> for details.
+        </p>
+
+        <h2>Responsible disclosure</h2>
+        <p>
+          If you believe you have found a security issue in KiteVault or on kitelux.com, please
+          email <a href="mailto:support@kitelux.com">support@kitelux.com</a>. Please include:
+        </p>
+        <ul>
+          <li>A description of the issue and its potential impact.</li>
+          <li>Steps to reproduce it, or a proof of concept.</li>
+          <li>The app version and Android version, or the URL, affected.</li>
+          <li>How you would like to be contacted and, if you wish, how to credit you.</li>
+        </ul>
+        <!-- TODO: Aditya to confirm the response time commitment before this is made more specific. -->
+        <p>
+          We aim to reply to every report. Please give us reasonable time to investigate and fix an
+          issue before you disclose it publicly, and do not access or modify other people's data.
+        </p>
+        <p>
+          Our machine-readable contact details are in
+          <a href="/.well-known/security.txt">security.txt</a>.
+        </p>
+
+        <h2>Out of scope</h2>
+        <!-- TODO: Aditya to confirm this out-of-scope list. -->
+        <ul>
+          <li>Rooted or malware-infected devices, and physical access to an unlocked phone.</li>
+          <li>Loss of access caused by a forgotten master password without a recovery key.</li>
+          <li>Unencrypted files that you export yourself (for example CSV or PDF).</li>
+          <li>Vulnerabilities in third-party services such as Google or Have I Been Pwned.</li>
+          <li>Social engineering, phishing, spam, and denial-of-service or volumetric testing.</li>
+          <li>Reports from automated scanners with no demonstrated impact.</li>
+        </ul>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-cols">
+          <div class="footer-col">
+            <h2>Products</h2>
+            <ul>
+              <li><a href="/vault/">KiteVault</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>Company</h2>
+            <ul>
+              <li><a href="/about/">About</a></li>
+              <li><a href="/security/">Security</a></li>
+              <li><a href="/contact/">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h2>Legal</h2>
+            <ul>
+              <li><a href="/vault/privacy/">KiteVault Privacy</a></li>
+              <li><a href="/vault/terms/">KiteVault Terms</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Kitelux. Kitelux is the trading name of Aditya Aman, Kolkata, India.</p>
+          <p><a href="mailto:support@kitelux.com">support@kitelux.com</a></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
