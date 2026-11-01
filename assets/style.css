@@ -338,6 +338,211 @@ a:hover {
   font-size: 1.1rem;
 }
 
+/* Home hero: text + animated night-sky illustration (inline SVG in index.html, CSS-only animation).
+   Text left / sky right on desktop; sky above text on mobile. Fixed aspect ratio, so no layout shift. */
+.hero-grid {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+  grid-template-areas:
+    'visual'
+    'copy';
+}
+
+.hero-copy {
+  grid-area: copy;
+}
+
+.hero-visual {
+  grid-area: visual;
+  width: 100%;
+  max-width: 340px;
+  justify-self: center;
+}
+
+.hero-sky {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 480 / 520;
+  overflow: hidden;
+  filter: drop-shadow(0 24px 40px rgba(10, 16, 40, 0.35));
+}
+
+.hero-home {
+  padding-top: 24px;
+}
+
+@media (min-width: 880px) {
+  .hero-grid {
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-areas: 'copy visual';
+    gap: 56px;
+  }
+  .hero-home {
+    padding: 40px 0 72px;
+    text-align: left;
+  }
+  .hero-home .hero-copy p,
+  .hero-home .hero-copy .hero-actions {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .hero-visual {
+    max-width: 480px;
+    justify-self: end;
+  }
+}
+
+/* Sky animations. Base values below are the static scene (used with reduced motion). */
+.hero-sky .stars circle {
+  opacity: 0.85;
+}
+
+.hero-sky .shoot {
+  opacity: 0;
+}
+
+.hero-sky .stars circle,
+.hero-sky .stars-big g {
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+.hero-sky .stars circle:nth-child(5n + 1) { animation-duration: 2.4s; }
+.hero-sky .stars circle:nth-child(5n + 2) { animation-duration: 3.2s; }
+.hero-sky .stars circle:nth-child(5n + 3) { animation-duration: 4.1s; }
+.hero-sky .stars circle:nth-child(5n + 4) { animation-duration: 5s; }
+.hero-sky .stars circle:nth-child(5n + 5) { animation-duration: 5.9s; }
+.hero-sky .stars circle:nth-child(7n + 1) { animation-delay: -0.4s; }
+.hero-sky .stars circle:nth-child(7n + 2) { animation-delay: -1.3s; }
+.hero-sky .stars circle:nth-child(7n + 3) { animation-delay: -2.1s; }
+.hero-sky .stars circle:nth-child(7n + 4) { animation-delay: -2.9s; }
+.hero-sky .stars circle:nth-child(7n + 5) { animation-delay: -3.7s; }
+.hero-sky .stars circle:nth-child(7n + 6) { animation-delay: -4.6s; }
+.hero-sky .stars circle:nth-child(7n + 7) { animation-delay: -5.4s; }
+.hero-sky .stars-big g:nth-child(1) { animation-duration: 3.4s; animation-delay: -0.8s; }
+.hero-sky .stars-big g:nth-child(2) { animation-duration: 4.6s; animation-delay: -2.2s; }
+.hero-sky .stars-big g:nth-child(3) { animation-duration: 5.6s; animation-delay: -1.4s; }
+.hero-sky .stars-big g:nth-child(4) { animation-duration: 3.9s; animation-delay: -3.1s; }
+.hero-sky .stars-big g:nth-child(5) { animation-duration: 5.1s; animation-delay: -4.2s; }
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* One shooting star every ~9s (first one after ~3s) */
+.hero-sky .shoot {
+  animation: shoot 9s linear -6s infinite;
+}
+
+@keyframes shoot {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0);
+  }
+  1.5% {
+    opacity: 1;
+  }
+  9%,
+  100% {
+    opacity: 0;
+    transform: translate(250px, 125px);
+  }
+}
+
+/* Faint cloud wisps drifting horizontally */
+.hero-sky .wisp {
+  animation: drift 70s ease-in-out infinite alternate;
+}
+.hero-sky .w2 {
+  animation-duration: 90s;
+  animation-direction: alternate-reverse;
+}
+.hero-sky .w3 {
+  animation-duration: 60s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(-45px);
+  }
+  to {
+    transform: translateX(45px);
+  }
+}
+
+/* Kite sway (rotate -4..4deg, a few px up/down, ~6s) and sparkle pulse (~3s) */
+.hero-sky .kite {
+  transform-origin: 240px 226px;
+  animation: kite-sway 6s ease-in-out infinite;
+}
+
+.hero-sky .sparkle {
+  transform-origin: 240px 190px;
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+@keyframes kite-sway {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-4deg);
+  }
+  50% {
+    transform: translate(0, -6px) rotate(4deg);
+  }
+}
+
+@keyframes sparkle {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* String: animate the path itself so its top end stays on the kite tip. Browsers without CSS
+   `d: path()` get the same sway as a rotation of the whole string instead. */
+@supports (d: path('M0 0 L1 1')) {
+  .hero-sky .string {
+    animation: string-sway 6s ease-in-out infinite;
+  }
+}
+
+@supports not (d: path('M0 0 L1 1')) {
+  .hero-sky .string {
+    transform-origin: 240px 226px;
+    animation: kite-sway 6s ease-in-out infinite;
+  }
+}
+
+@keyframes string-sway {
+  0%,
+  100% {
+    d: path('M248.6 348.7 C245.6 410 232 480 240 560');
+  }
+  50% {
+    d: path('M231.4 342.7 C236.4 410 250 480 240 560');
+  }
+}
+
+/* Reduced motion: the same scene, completely still */
+@media (prefers-reduced-motion: reduce) {
+  .hero-sky *,
+  .hero-sky .string {
+    animation: none !important;
+  }
+}
+
 /* Section heading */
 .section-heading {
   margin: 0 0 24px;
