@@ -34,6 +34,17 @@
   font-display: swap;
 }
 
+/* Metric-matched fallback: while Inter loads, text is laid out almost exactly like Inter,
+   so the swap causes no layout shift. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Liberation Sans'), local('Helvetica');
+  size-adjust: 107.12%;
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+}
+
 /* Day sky (light) */
 :root {
   --sky-top: #9ccbf4;
@@ -80,7 +91,7 @@
   --badge-soon-bg: rgba(14, 22, 48, 0.08);
   --badge-soon-fg: #33406b;
 
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Night sky (dark) */
@@ -341,59 +352,150 @@ a:hover {
   font-size: 1.1rem;
 }
 
-/* Home hero: text + animated night-sky illustration (inline SVG in index.html, CSS-only animation).
-   Text left / sky right on desktop; sky above text on mobile. Fixed aspect ratio, so no layout shift. */
-.hero-grid {
-  display: grid;
-  gap: 32px;
-  align-items: center;
-  grid-template-areas:
-    'visual'
-    'copy';
+/* Home hero: full-bleed animated sky (inline SVG, CSS-only animation) behind the text.
+   The SVG covers the whole hero (incl. behind the transparent header) and scales with
+   preserveAspectRatio="xMidYMid slice", so there are never empty bands. */
+:root {
+  --header-h: 59px; /* measured height of the sticky header; two rows on narrow phones */
+  --shade: transparent;
+  --wisp: #ffffff;
+  --string: rgba(20, 32, 74, 0.5);
 }
 
-.hero-copy {
-  grid-area: copy;
+@media (max-width: 459px) {
+  :root {
+    --header-h: 104px;
+  }
 }
 
-.hero-visual {
-  grid-area: visual;
-  width: 100%;
-  max-width: 340px;
-  justify-self: center;
-}
-
-.hero-sky {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 480 / 520;
-  overflow: hidden;
-  filter: drop-shadow(0 24px 40px rgba(10, 16, 40, 0.35));
+@media (prefers-color-scheme: dark) {
+  :root {
+    --shade: rgba(10, 16, 40, 0.7);
+    --wisp: #b9c6ff;
+    --string: rgba(255, 255, 255, 0.35);
+  }
 }
 
 .hero-home {
-  padding-top: 24px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  margin-top: calc(var(--header-h) * -1);
+  padding: calc(var(--header-h) + 24px) 0 96px;
+  overflow: hidden;
+  text-align: left;
 }
 
-@media (min-width: 880px) {
-  .hero-grid {
-    grid-template-columns: 1.05fr 0.95fr;
-    grid-template-areas: 'copy visual';
-    gap: 56px;
+.hero-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.hero-sky .s0 {
+  stop-color: var(--sky-top);
+}
+.hero-sky .s1 {
+  stop-color: var(--sky-mid);
+}
+.hero-sky .s2 {
+  stop-color: var(--bg);
+}
+.hero-sky .wc {
+  stop-color: var(--wisp);
+}
+.hero-sky .string {
+  stroke: var(--string);
+}
+
+/* Bottom: the sky (and the grain layer) fade out with a mask, so the page background underneath shows
+   through and the hero blends into the products section with no hard edge. */
+.hero-sky,
+.hero-home::before {
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 60%, transparent 100%);
+}
+
+/* Film grain over the sky (dark mode only: --noise is none in light mode) */
+.hero-home::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: var(--noise);
+  background-size: 180px 180px;
+}
+
+/* Left-side shade keeps the headline readable over the stars (dark mode only) */
+.hero-home::after {
+  top: 0;
+  bottom: 0;
+  height: auto;
+  z-index: 1;
+  background: linear-gradient(90deg, var(--shade) 0%, transparent 55%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+}
+
+.hero-home > .wrap {
+  z-index: 2;
+}
+
+.hero-home .hero-copy {
+  max-width: 640px;
+}
+
+.hero-home .hero-copy p,
+.hero-home .hero-copy .hero-actions {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Kite placement in viewBox units (1600 x 900): right third, upper-middle on desktop */
+.hero-sky .kite-pos {
+  transform: translate(1200px, 315px);
+}
+
+/* Day sky: no stars or shooting star, kite and string stay */
+.hero-sky .stars,
+.hero-sky .shoot {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-sky .stars,
+  .hero-sky .shoot {
+    display: inline;
   }
+}
+
+/* Phones: kite above the text, centred and ~30% smaller; stars still full-bleed */
+@media (max-width: 767px) {
   .hero-home {
-    padding: 40px 0 72px;
-    text-align: left;
+    align-items: flex-end;
+    padding-bottom: 64px;
+    text-align: center;
+  }
+  .hero-home::after {
+    background: linear-gradient(180deg, transparent 30%, var(--shade) 85%);
   }
   .hero-home .hero-copy p,
   .hero-home .hero-copy .hero-actions {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .hero-visual {
-    max-width: 480px;
-    justify-self: end;
+  .hero-sky .kite-pos {
+    transform: translate(800px, 270px) scale(0.7);
+  }
+  .hero-sky .string {
+    opacity: 0.6; /* the string passes behind the headline here */
   }
 }
 
@@ -428,6 +530,7 @@ a:hover {
 .hero-sky .stars-big g:nth-child(3) { animation-duration: 5.6s; animation-delay: -1.4s; }
 .hero-sky .stars-big g:nth-child(4) { animation-duration: 3.9s; animation-delay: -3.1s; }
 .hero-sky .stars-big g:nth-child(5) { animation-duration: 5.1s; animation-delay: -4.2s; }
+.hero-sky .stars-big g:nth-child(6) { animation-duration: 4.3s; animation-delay: -2.7s; }
 
 @keyframes twinkle {
   0%,
@@ -455,7 +558,7 @@ a:hover {
   9%,
   100% {
     opacity: 0;
-    transform: translate(250px, 125px);
+    transform: translate(-340px, 170px);
   }
 }
 
@@ -473,21 +576,22 @@ a:hover {
 
 @keyframes drift {
   from {
-    transform: translateX(-45px);
+    transform: translateX(-120px);
   }
   to {
-    transform: translateX(45px);
+    transform: translateX(120px);
   }
 }
 
-/* Kite sway (rotate -4..4deg, a few px up/down, ~6s) and sparkle pulse (~3s) */
+/* Kite sway (rotate -4..4deg, a few px up/down, ~6s) and sparkle pulse (~3s).
+   Pivot = centre of the kite, in the kite's own coordinates (sparkle centre = 0 0). */
 .hero-sky .kite {
-  transform-origin: 240px 226px;
+  transform-origin: 0 26.4px;
   animation: kite-sway 6s ease-in-out infinite;
 }
 
 .hero-sky .sparkle {
-  transform-origin: 240px 190px;
+  transform-origin: 0 0;
   animation: sparkle 3s ease-in-out infinite;
 }
 
@@ -497,7 +601,7 @@ a:hover {
     transform: translate(0, 0) rotate(-4deg);
   }
   50% {
-    transform: translate(0, -6px) rotate(4deg);
+    transform: translate(0, -5px) rotate(4deg);
   }
 }
 
@@ -523,7 +627,7 @@ a:hover {
 
 @supports not (d: path('M0 0 L1 1')) {
   .hero-sky .string {
-    transform-origin: 240px 226px;
+    transform-origin: 0 26.4px;
     animation: kite-sway 6s ease-in-out infinite;
   }
 }
@@ -531,10 +635,10 @@ a:hover {
 @keyframes string-sway {
   0%,
   100% {
-    d: path('M248.6 348.7 C245.6 410 232 480 240 560');
+    d: path('M6.3 116.4 C17 300 -44 640 -250 1000');
   }
   50% {
-    d: path('M231.4 342.7 C236.4 410 250 480 240 560');
+    d: path('M-6.3 111.4 C3 300 -36 640 -250 1000');
   }
 }
 
