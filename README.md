@@ -13,6 +13,7 @@ Static website for Kitelux, hosted on Cloudflare Pages from this GitHub repo. Th
 /404.html              Served automatically by Cloudflare Pages
 /assets/style.css      The one shared stylesheet (components documented at the top)
 /assets/fonts/         Self-hosted Inter variable font (Latin subset, wght axis, woff2) and its SIL OFL license
+/favicon.ico  /favicon-{48,96,192}.png  /apple-touch-icon.png   Kitelux logo favicon set (stable URLs, never rename; overwrite to change)
 /assets/site.js        The only script: scroll-reveal (progressive enhancement; pages work without it)
 /assets/screens/       KiteVault demo video (kitevault-demo-final.mp4, 540x1200, muted loop) and its poster JPG,
                        shown inside the CSS phone frame on the home page and /vault/ with a caption saying it is
