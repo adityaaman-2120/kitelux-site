@@ -30,3 +30,19 @@
   );
   for (var j = 0; j < below.length; j++) io.observe(below[j]);
 })();
+
+(function () {
+  var vids = document.querySelectorAll('video.kv-demo');
+  if (!vids.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  vids.forEach(function (v) {
+    if (reduce) { v.removeAttribute('autoplay'); v.pause(); return; } // poster only
+    if (!('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else { v.pause(); }
+      });
+    }, { threshold: 0.25 }).observe(v);
+  });
+})();

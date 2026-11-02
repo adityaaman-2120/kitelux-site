@@ -74,14 +74,15 @@
               <div class="phone">
                 <span class="phone-notch" aria-hidden="true"></span>
                 <div class="phone-screen">
-                  <!-- TODO: real screenshots. Add portrait (~9:19) PNGs to assets/screens/ (e.g. kitevault-1.png), then replace the
-                       <img class="phone-icon"> below with:
-                       <img class="phone-shot" src="/assets/screens/kitevault-1.png" width="540" height="1140" alt="DESCRIBE WHAT THE SCREENSHOT SHOWS" />
-                       Until then the frame shows the app icon. Never draw a fake app UI. (Not referenced yet on purpose: a missing
-                       file would log a 404 console error.) -->
-                  <img class="phone-icon" src="/assets/kitevault-icon.png" width="96" height="96" alt="KiteVault icon" />
+                  <video class="kv-demo"
+                         src="/assets/screens/kitevault-demo-final.mp4"
+                         poster="/assets/screens/kitevault-demo-final-poster.jpg"
+                         width="540" height="1200"
+                         autoplay muted loop playsinline preload="metadata"
+                         aria-label="Recreated walkthrough of KiteVault: unlocking the vault, suggesting a strong password in Chrome, and saving a login"></video>
                 </div>
               </div>
+              <p class="kv-demo-caption">Recreated walkthrough of the real KiteVault flow.</p>
             </div>
           </div>
         </div>
